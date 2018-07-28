@@ -105,12 +105,12 @@ app.get("/logout", function(req, res){
     res.redirect("/");
 });
 
-app.get("/home/:username",function(req,res){
-   // console.log(req.user.username);
-   let username =req.user.username;
-   res.send(JSON.stringify({name:username}));
-    //res.redirect('/home')
-})
+// app.get("/home/:username",function(req,res){
+//    // console.log(req.user.username);
+//    let username =req.user.username;
+//    res.send(JSON.stringify({name:username}));
+//     //res.redirect('/home')
+// })
 
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
@@ -119,27 +119,75 @@ function isLoggedIn(req, res, next){
     res.redirect("/login");
 }
 
-app.get("/username",function(req,res){
-    MongoClient.connect(url, function(err, db) {
-      if (err) throw err;
-      var dbo = db.db("databasee");
-      dbo.collection("users").find({}).toArray(function(err, result) {
-        if (err) throw err;
-        User.find({username:Username},function(err,user){
+// app.get("/username",function(req,res){
+//     MongoClient.connect(url, function(err, db) {
+//       if (err) throw err;
+//       var dbo = db.db("databasee");
+//       dbo.collection("users").find({}).toArray(function(err, result) {
+//         if (err) throw err;
+//         User.find({username:Username},function(err,user){
+//             if(err){
+//                 console.log(err);
+//             }
+//             else{
+//                 // console.log(Username);
+//                 // console.log(user);
+//                 res.send(user);
+               
+//             }
+//         })
+//         //console.log(result);
+//         db.close();
+//       });
+//     });
+// });
+
+
+//from prefinal major
+var querySchema = new mongoose.Schema({
+    query : String
+}) 
+
+var Query =mongoose.model("Query",querySchema);
+
+Query.create({
+    query:"hey my name is wosti"
+},function(err,query){
+    if(err){
+        console.log(err);
+    }
+    else{
+        console.log("Newly created Query");
+        console.log(query);
+    }
+});
+
+//routes
+app.get("/query",function(req,res){
+    Query.find({},function(err,queries){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send(queries);
+        }
+    })
+});
+
+
+app.post("/queries",function(req,res){
+        var postQuery =req.body.userquery;
+        console.log(postQuery);
+        var newQuery = {query:postQuery}
+        Query.create(newQuery,function(err,newlyCreated){
             if(err){
-                console.log(err);
+                console.log("dsfds",err);
             }
             else{
-                // console.log(Username);
-                // console.log(user);
-                res.send(user);
-               
+                res.redirect("http://localhost:3000/home");
             }
         })
-        //console.log(result);
-        db.close();
-      });
-    });
+       // res.send("you hit the post route")
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
