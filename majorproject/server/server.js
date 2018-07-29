@@ -1,13 +1,5 @@
 
-// const express = require('express');
-
-//const app = express();
 const port = process.env.PORT || 5000;
-
-// app.get('/api/hello', (req, res) => {
-//   res.send({ express: 'Hello From Express' });
-// });
-
 
 var express               = require("express"),
     mongoose              = require("mongoose"),
@@ -19,6 +11,7 @@ var express               = require("express"),
 
     var MongoClient = require('mongodb').MongoClient;
     var url = "mongodb://localhost/";
+    var Query             =require("./models/query");
 
 
     
@@ -105,12 +98,6 @@ app.get("/logout", function(req, res){
     res.redirect("/");
 });
 
-// app.get("/home/:username",function(req,res){
-//    // console.log(req.user.username);
-//    let username =req.user.username;
-//    res.send(JSON.stringify({name:username}));
-//     //res.redirect('/home')
-// })
 
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
@@ -144,23 +131,24 @@ function isLoggedIn(req, res, next){
 
 
 //from prefinal major
-var querySchema = new mongoose.Schema({
-    query : String
-}) 
+// var querySchema = new mongoose.Schema({
+//     query : String
+// }) 
 
-var Query =mongoose.model("Query",querySchema);
+// var Query =mongoose.model("Query",querySchema);
 
-Query.create({
-    query:"hey my name is wosti"
-},function(err,query){
-    if(err){
-        console.log(err);
-    }
-    else{
-        console.log("Newly created Query");
-        console.log(query);
-    }
-});
+// Query.create({
+//     name: "pradip",
+//     description:"How much powerful is JavaScript in 2018"
+// },function(err,query){
+//     if(err){
+//         console.log(err);
+//     }
+//     else{
+//         console.log("Newly created Query");
+//         //console.log(query);
+//     }
+// });
 
 //routes
 app.get("/query",function(req,res){
@@ -169,7 +157,8 @@ app.get("/query",function(req,res){
             console.log(err);
         }
         else{
-            res.send(queries);
+           // console.log("queries from get",queries);
+            res.json(queries);
         }
     })
 });
@@ -177,8 +166,12 @@ app.get("/query",function(req,res){
 
 app.post("/queries",function(req,res){
         var postQuery =req.body.userquery;
-        console.log(postQuery);
-        var newQuery = {query:postQuery}
+        username=req.user.username;
+       // console.log(postQuery + username);
+        var newQuery = {
+            name:username,
+            description:postQuery
+        }
         Query.create(newQuery,function(err,newlyCreated){
             if(err){
                 console.log("dsfds",err);

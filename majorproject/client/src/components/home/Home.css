@@ -27,4 +27,35 @@
     background-image: url(https://topbackgroundwallpaper.com/wp-content/uploads/2018/01/wallpaper-website-background-different-backgrounds-website-sphere-beautiful-background-web-wallpapers.jpg);
   }
   */
-  
+
+  .button5 {
+    border-radius: 100%;
+   
+  }
+  .button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+}
+
+.form-inline{
+  padding-right: 5%
+}
+
+.feedsOrient{
+  margin-left: 0%;
+}
+
+.dropdown-menu{
+  left:0;
+  margin-right: 10%;
+  padding-right: 10%;
+
+}
+

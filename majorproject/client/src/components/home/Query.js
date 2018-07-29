@@ -20,12 +20,12 @@ class query extends Component {
   }
   
 componentDidMount(){
-  fetch('http://localhost:5000/query').
+  fetch('/query').
     then((Response)=>Response.json()).
     then(data =>{
       console.log("data is:",data);
         this.setState({queries:data})
-        console.log(this.state.queries[0].query);
+        console.log(this.state.queries[0].description);
     })
     
 }
@@ -52,7 +52,10 @@ componentDidMount(){
 
         <hr/>
         <div  className="list-group-item list-group-item-secondary row">
-        {item.query}
+          {item.name}
+          <div>
+            {item.description}
+          </div>
         </div>
          
         </div>

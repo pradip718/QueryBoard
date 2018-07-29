@@ -9,8 +9,11 @@ export default class Home extends Component{
   render(){
       return(
           <div>
-            <Navbar/>
-            <Feeds/>
+          <Navbar/>
+          
+          
+            <Feeds/>            
+        
             {/*<p className='Heading'>Hey You are in Home File</p>*/}
           </div>
       );
