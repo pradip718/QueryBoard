@@ -40,16 +40,16 @@ export default class Stories extends Component{
                 <hr/>
                 <div>
                 <button  className="btn btn-info" data-toggle="collapse" data-target="#demo">Comment</button>
-               
-               
+
+
                 <div id="demo" className="collapse">
                 <br/>
-                
-                <form class="commentForm" action={"/queries/"+item._id} method="POST">               
+
+                <form class="commentForm" action={"http://localhost:5000/queries/"+item._id} method="POST">               
                 <input type="text" class="form-control" placeholder="comment..." name="comment"/>
-              
+
                 <button class="btn btn-lg btn-primary btn-block" >Post</button>
-                
+
               </form>
 
                 </div>

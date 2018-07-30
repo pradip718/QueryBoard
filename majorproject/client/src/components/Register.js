@@ -18,11 +18,15 @@ class Create extends Component {
 
           <label for="inputEmail" class="sr-only">Email address</label>
           <input type="email" class="form-control" placeholder="Email address" name="username"/>
+          
           <label for="inputPassword" class="sr-only">Password</label>
           <input type="password" class="form-control" placeholder="Password" name="password"/>
           <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
-          
+           
+            <a href="/login" >Go Back</a>
+                    
         </form>
+        
       </div>
     );
   }

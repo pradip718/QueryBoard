@@ -76,6 +76,7 @@ import './Feeds.css';
                             <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" size='80'/>
                             <button className="btn btn-danger my-2 my-sm-0" type="submit" >Search</button>
                         </form>
+
                         
                         <div>
                         {/*User Profile*/}
@@ -84,7 +85,7 @@ import './Feeds.css';
                      <button className="btn btn-success button5     " type="button" data-toggle="dropdown">P
                      <span className="caret"></span></button>
                      <ul className="dropdown-menu dropdown-menu-left ">
-                       <li><a href="#">HTML</a></li>
+                       <li><a href="/login">Sign Out</a></li>
                        <li><a href="#">CSS</a></li>
                        <li><a href="#">JavaScript</a></li>
                      </ul>

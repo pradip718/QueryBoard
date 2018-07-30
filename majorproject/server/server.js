@@ -12,6 +12,7 @@ var express               = require("express"),
     var MongoClient = require('mongodb').MongoClient;
     var url = "mongodb://localhost/";
     var Query             =require("./models/query");
+    var Comment           =require("./models/comment");
 
 
     
@@ -182,5 +183,33 @@ app.post("/queries",function(req,res){
         })
        // res.send("you hit the post route")
 });
+
+
+//Comment Post handle
+app.post("/queries/:id",function(req,res){
+    //res.send("Comment Added");
+    Query.findById(req.params.id,function(err,query){
+        if(err){
+            console.log(err);
+        }
+        else{
+            //console.log(req.body.comment)
+            Comment.create({
+                text:req.body.comment
+            },function(err,comment){
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    query.comments.push(comment);
+                    query.save();
+                    res.redirect("http://localhost:3000/home");
+
+                }
+            })
+        }
+    });
+
+})
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
