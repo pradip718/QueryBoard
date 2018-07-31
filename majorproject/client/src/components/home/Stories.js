@@ -1,12 +1,15 @@
 import React,{Component} from 'react';
+import "./Home.css"
 //styling ko lagi css ne import gardeko chu Query.css
 export default class Stories extends Component{
 
-    constructor() {
+    constructor(props) {
         super();
         this.state = {
           userquery:'',
-          queries:[]
+          username: [],          
+          queries:[],
+          comment:[]
         };
       }
       
@@ -20,46 +23,86 @@ export default class Stories extends Component{
             //console.log(this.state.queries[0].query);
            // console.log("stories data",data[0].description );
           })
-        
-    }
-      render() {
-        return (
-          <div class="container">
-          
-            {this.state.queries.map(function(item, key) {
-              return(
-            <div>
-    
-            <hr/>
+
+
+
+          //temporary method of getting username
+          fetch('/login')
+          .then((Response)=>Response.json()).
+            then(data =>{
+             //    JSON.parse(data);
+             //    console.log("data from navbar",data.username);
+
+            //  console.log( typeof(data));
+            //  console.log(JSON.parse(data));
+            this.setState({username:data.name})
+            console.log("name for user is:",this.state.username);
             
-            <div  className="list-group-item list-group-item-secondary row">
-                {item.name}
-                <div>
-                  {item.description}
-                </div>
-                <hr/>
-                <div>
-                <button  className="btn btn-info" data-toggle="collapse" data-target="#demo">Comment</button>
+            })
+    }
 
 
-                <div id="demo" className="collapse">
-                <br/>
+      render() {
 
-                <form class="commentForm" action={"http://localhost:5000/queries/"+item._id} method="POST">               
-                <input type="text" class="form-control" placeholder="comment..." name="comment"/>
+        return (
+          <div className="container">
+          
+            {this.state.queries.map((item, key)=> {
+              return( 
+            <div key={key}>
+    
+              <hr/>
+              
+              <div  className="list-group-item list-group-item-secondary row ">
+                  <div className="authorName">{item.name}</div>
+                  <div>
+                    {item.description}
+                  </div>
+                  <hr/>
+                  <div>
+                    <button  className="btn btn-info" data-toggle="collapse" data-target="#demo"onClick={()=>{
+                      return(
+                        
+                        fetch('/queries/'+item._id).
+                        then((Response)=>Response.json()).
+                        then(data =>{
+                          //console.log("comment is:",data.comments);
+                          
+                          this.setState({comment:data.comments});
+                          //console.log("comment success", this.state.comment);
+                        })
+                      )
+                    }}> <i className="comment" >Comment</i>
+                      
+                    </button>
+                    <div id="demo" className="collapse">
+                    <br/>
 
-                <button class="btn btn-lg btn-primary btn-block" >Post</button>
+                        <form className="commentForm" action={"http://localhost:5000/queries/"+item._id} method="POST">
+                          <input type="text" className="form-control" placeholder="Write a comment..." name="comment"/>
 
-              </form>
-
-                </div>
-              </div>
+                          <button className="btn btn-lg btn-primary btn-block" >Post</button>
+                        </form>
+                        <br/>
+                        <div>
+                         { 
+                              
+                              this.state.comment.map((commentItem, key)=> {
+                                return(<div className="list-group-item list-group-item-success">
+                                  <span className="authorName">{commentItem.author}</span> {commentItem.text}
+                                  </div>
+                                )
+                              })
+                          }
+                          
+                      </div>
+                    </div>
+                  </div>
               </div>
             </div>
               )
           })}
           </div>
         );
-     
       }
 }

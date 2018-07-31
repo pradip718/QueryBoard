@@ -90,7 +90,7 @@ passport.authenticate('local'),function(req, res) {
     
 });
 app.get('/login',function(req,res){
-    res.json(JSON.stringify({name: req.user.username,login:"true"}));
+    res.json({name: req.user.username,login:"true"});
 });
 
 
@@ -193,9 +193,10 @@ app.post("/queries/:id",function(req,res){
             console.log(err);
         }
         else{
-            //console.log(req.body.comment)
+            console.log(query);
             Comment.create({
-                text:req.body.comment
+                text:req.body.comment,
+                author:req.user.username
             },function(err,comment){
                 if(err){
                     console.log(err);
@@ -211,5 +212,18 @@ app.post("/queries/:id",function(req,res){
     });
 
 })
+
+app.get("/queries/:id",function(req,res){
+    Query.findById(req.params.id).populate("comments").exec(function(err, query){
+        if(err){
+            console.log(err);
+        } else {
+            //console.log(query);
+            //render show template with that campground
+            //res.render("campgrounds/show", {campground: foundCampground});
+            res.json(query);
+        }
+    });
+});
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

@@ -47,7 +47,7 @@ render(){
       {this.state.data.map(function(item, key) {
              
                return (
-                      <div className="list-group-item list-group-item-secondary row">
+                      <div className="list-group-item list-group-item-secondary row text-white bg-dark">
                       <hr/>
                       <div >
                       <li>
