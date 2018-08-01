@@ -21,7 +21,6 @@ export default class Comments extends React.Component{
     }
 
      render() {
-
        let {commentItem, key} = this.props;
        return (<div key={key}>
         <div className="list-group-item list-group-item-success">
@@ -35,19 +34,3 @@ export default class Comments extends React.Component{
     }
 }
 
-{/*
-        {this.state.username==commentItem.author ?(
-            <div>
-                <button
-                className="btn btn-info"
-                onClick={() => {
-                    <Edit/>
-                }}
-            >
-                Edit
-            </button>
-            </div>
-        ):(
-            <div></div>
-        )}
-*/}

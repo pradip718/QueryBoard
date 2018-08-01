@@ -45,7 +45,7 @@ export default class Stories extends Component{
             return (<Post item={item} key={key} />)
           }
         )
-      }   
+      }
         </div>
       )
   }

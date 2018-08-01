@@ -10,8 +10,7 @@ export default class Home extends Component{
       return(
           <div>
           <Navbar/>
-          
-          
+
             <Feeds/>            
         
             {/*<p className='Heading'>Hey You are in Home File</p>*/}
