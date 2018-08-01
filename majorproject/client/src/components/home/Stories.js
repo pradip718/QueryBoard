@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
-import "./Home.css";
-import "./ratings.css";
+import "./Home.css"
+import Comment from "./Comments";
 import Post from "./Post"
 //styling ko lagi css ne import gardeko chu Query.css
 export default class Stories extends Component{
@@ -11,34 +11,17 @@ export default class Stories extends Component{
           userquery:'',
           username: [],          
           queries:[],
-          comment:[],
-          clicks:0,
+          comment:[]
         };
       }
-      clicked = () =>{
-        
-       this.setState({ clicks: this.state.clicks + 1});
-      // this.setState({ show: !this.state.show });
-      // console.log(this.state.clicks);
-      }
-      clickedd = () =>{
-        
-        this.setState({ clicks: this.state.clicks - 1});
-      // this.setState({ show:!this.state.show });
-      // console.log(this.state.clicks);
-      }
-      ToggleClick = () => {
-        this.setState({ show: !this.state.show });
-      }
-    
+      
+      
     componentDidMount(){
       fetch('/query').
         then((Response)=>Response.json()).
         then(data =>{
-          //console.log("data is:",data);
             this.setState({queries:data.reverse()})
-            //console.log(this.state.queries[0].query);
-           // console.log("stories data",data[0].description );
+
           })
 
 
@@ -47,11 +30,7 @@ export default class Stories extends Component{
           fetch('/login')
           .then((Response)=>Response.json()).
             then(data =>{
-             //    JSON.parse(data);
-             //    console.log("data from navbar",data.username);
 
-            //  console.log( typeof(data));
-            //  console.log(JSON.parse(data));
             this.setState({username:data.name})
             console.log("name for user is:",this.state.username);
             

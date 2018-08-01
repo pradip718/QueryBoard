@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom';
 import Login from './components/Login';
 import Register from './components/Register';
 import Home from './components/home/Home';
-import Expert from'./components/home/Expert';
 
 import { BrowserRouter as Router, Route,Redirect,Link,Switch } from 'react-router-dom';
 
@@ -56,7 +55,6 @@ class App extends Component {
             <Route exact path='/login' component={Login} />
             <Route path='/register' component={Register} />
             <Route path="/home"  component={Home} />
-            <Route path="/expert" component={Expert}/>
           </div>
         </Router>
       </div>
