@@ -220,7 +220,7 @@ app.get("/queries/:id",function(req,res){
         if(err){
             console.log(err);
         } else {
-            //console.log(query);
+            console.log(query);
             //render show template with that campground
             //res.render("campgrounds/show", {campground: foundCampground});
             res.json(query);
@@ -230,7 +230,7 @@ app.get("/queries/:id",function(req,res){
 
 
 
-// // COMMENT EDIT ROUTE
+//COMMENT EDIT ROUTE
 // app.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req, res){
 //     Comment.findById(req.params.comment_id, function(err, foundComment){
 //        if(err){
