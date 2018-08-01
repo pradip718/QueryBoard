@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
-import "./Home.css"
+import "./Home.css";
+import "./ratings.css";
 //styling ko lagi css ne import gardeko chu Query.css
 export default class Stories extends Component{
 
@@ -9,11 +10,26 @@ export default class Stories extends Component{
           userquery:'',
           username: [],          
           queries:[],
-          comment:[]
+          comment:[],
+          clicks:0,
         };
       }
-      
-      
+      clicked = () =>{
+        
+       this.setState({ clicks: this.state.clicks + 1});
+      // this.setState({ show: !this.state.show });
+      // console.log(this.state.clicks);
+      }
+      clickedd = () =>{
+        
+        this.setState({ clicks: this.state.clicks - 1});
+      // this.setState({ show:!this.state.show });
+      // console.log(this.state.clicks);
+      }
+      ToggleClick = () => {
+        this.setState({ show: !this.state.show });
+      }
+    
     componentDidMount(){
       fetch('/query').
         then((Response)=>Response.json()).
@@ -73,8 +89,17 @@ export default class Stories extends Component{
                         })
                       )
                     }}> <i className="comment" >Comment</i>
+                    
                       
                     </button>
+                    <button className="btn upvote" onClick={ this.clicked.bind(this) }>upvote</button>
+                    <button className="btn downvote" onClick={this.clickedd.bind(this) }>downvote</button>
+                    <button className="btn status" onClick={this.ToggleClick}>
+                    { !this.state.show ? 'rating status ' : 'rating status ' }
+        </button>
+        { this.state.show ? <h2>{ this.state.clicks }</h2> : '' }
+
+
                     <div id="demo" className="collapse">
                     <br/>
 

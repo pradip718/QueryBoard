@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
-import '../Login.css';
+import './Blogs.css';
 //import Google from './GoogleLogin'
 
-class query extends Component {
+class Blogs extends Component {
 
   constructor() {
     super();
@@ -20,7 +20,7 @@ class query extends Component {
   }
   
 componentDidMount(){
-  fetch('/query').
+  fetch('/Blogs').
     then((Response)=>Response.json()).
     then(data =>{
       console.log("data is:",data);
@@ -30,21 +30,21 @@ componentDidMount(){
     
 }
   render() {
-    const {userquery} = this.state;
+    const {userquery } = this.state;
     
     return (
       <div class="container">
-        <form class="form-signin" action="http://localhost:5000/queries" method="POST">
-          <h2 class="form-signin-heading" color="blue">Want to ask something? ask here!</h2>
-         
+        <form action="http://localhost:5000/blogs" method="POST">
+          {/* <h2 class="form-signin-heading" color="blue">Want to ask something? ask here!</h2>
+          */}
           <label for="inputQuery" class="sr-only">query</label> 
-          <input type="text" class="form-control" placeholder="want to ask something? ask here!" name="userquery" required/>
+          <textarea type="text" class="form" placeholder="Write Blog about something." name="userquery" required/>
         
-          <button class="btn btn-lg btn-primary btn-block" >Ask</button>
+          <button class="btn btn-lg FA btn-primary" >Post</button>
           
         </form>
         <section>
-          <h2> here we will show the posts</h2>
+          <h2>Blogs from Experts</h2>
         </section>
         {this.state.queries.map(function(item, key) {
           return(
@@ -68,4 +68,4 @@ componentDidMount(){
   }
 }
 
-export default query;
+export default Blogs;
