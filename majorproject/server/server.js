@@ -220,7 +220,7 @@ app.get("/queries/:id",function(req,res){
         if(err){
             console.log(err);
         } else {
-            console.log(query);
+            //console.log(query);
             //render show template with that campground
             //res.render("campgrounds/show", {campground: foundCampground});
             res.json(query);
