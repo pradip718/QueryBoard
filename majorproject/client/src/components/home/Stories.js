@@ -1,5 +1,7 @@
 import React,{Component} from 'react';
 import "./Home.css"
+import Comment from "./Comments";
+import Post from "./Post"
 //styling ko lagi css ne import gardeko chu Query.css
 export default class Stories extends Component{
 
@@ -18,10 +20,8 @@ export default class Stories extends Component{
       fetch('/query').
         then((Response)=>Response.json()).
         then(data =>{
-          //console.log("data is:",data);
             this.setState({queries:data.reverse()})
-            //console.log(this.state.queries[0].query);
-           // console.log("stories data",data[0].description );
+
           })
 
 
@@ -30,11 +30,7 @@ export default class Stories extends Component{
           fetch('/login')
           .then((Response)=>Response.json()).
             then(data =>{
-             //    JSON.parse(data);
-             //    console.log("data from navbar",data.username);
 
-            //  console.log( typeof(data));
-            //  console.log(JSON.parse(data));
             this.setState({username:data.name})
             console.log("name for user is:",this.state.username);
             
@@ -42,67 +38,15 @@ export default class Stories extends Component{
     }
 
 
-      render() {
-
-        return (
-          <div className="container">
-          
-            {this.state.queries.map((item, key)=> {
-              return( 
-            <div key={key}>
-    
-              <hr/>
-              
-              <div  className="list-group-item list-group-item-secondary row ">
-                  <div className="authorName">{item.name}</div>
-                  <div>
-                    {item.description}
-                  </div>
-                  <hr/>
-                  <div>
-                    <button  className="btn btn-info" data-toggle="collapse" data-target="#demo"onClick={()=>{
-                      return(
-                        
-                        fetch('/queries/'+item._id).
-                        then((Response)=>Response.json()).
-                        then(data =>{
-                          //console.log("comment is:",data.comments);
-                          
-                          this.setState({comment:data.comments});
-                          //console.log("comment success", this.state.comment);
-                        })
-                      )
-                    }}> <i className="comment" >Comment</i>
-                      
-                    </button>
-                    <div id="demo" className="collapse">
-                    <br/>
-
-                        <form className="commentForm" action={"http://localhost:5000/queries/"+item._id} method="POST">
-                          <input type="text" className="form-control" placeholder="Write a comment..." name="comment"/>
-
-                          <button className="btn btn-lg btn-primary btn-block" >Post</button>
-                        </form>
-                        <br/>
-                        <div>
-                         { 
-                              
-                              this.state.comment.map((commentItem, key)=> {
-                                return(<div className="list-group-item list-group-item-success">
-                                  <span className="authorName">{commentItem.author}</span> {commentItem.text}
-                                  </div>
-                                )
-                              })
-                          }
-                          
-                      </div>
-                    </div>
-                  </div>
-              </div>
-            </div>
-              )
-          })}
-          </div>
-        );
-      }
+    render() {
+      return (
+        <div className="container">
+          {this.state.queries.map((item, key) => {
+            return (<Post item={item} key={key} />)
+          }
+        )
+      }   
+        </div>
+      )
+  }
 }

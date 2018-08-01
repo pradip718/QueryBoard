@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import '../Login.css';
+import "./Home.css"
 //import Google from './GoogleLogin'
 
 class query extends Component {
@@ -24,7 +25,7 @@ componentDidMount(){
     then((Response)=>Response.json()).
     then(data =>{
       console.log("data is:",data);
-        this.setState({queries:data})
+        this.setState({queries:data.reverse()})
         console.log(this.state.queries[0].description);
     })
     
@@ -39,6 +40,11 @@ componentDidMount(){
          
           <label for="inputQuery" class="sr-only">query</label> 
           <input type="text" class="form-control" placeholder="want to ask something? ask here!" name="userquery" required/>
+          <br/>
+          <div class="form-group">
+            <input class="form-control" type="text" name="image" placeholder="image url"/>
+          </div>
+
         
           <button class="btn btn-lg btn-primary btn-block" >Ask</button>
           
@@ -56,6 +62,10 @@ componentDidMount(){
           <div>
             {item.description}
           </div>
+
+          <div className="alignImages">
+            <img src= {item.image}/>
+        </div>
         </div>
          
         </div>

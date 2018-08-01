@@ -71,3 +71,10 @@
 .list-group-item list-group-item-success{
   border-radius: 10%;
 }
+
+
+.alignImages{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

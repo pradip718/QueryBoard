@@ -90,10 +90,6 @@ import './Feeds.css';
                        <li><a href="#">JavaScript</a></li>
                      </ul>
                    </div>
-
-
-
-                        
                         </div>
                         </div>
 
