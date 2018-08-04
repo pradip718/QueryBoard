@@ -35,7 +35,7 @@ export default class Post extends React.Component{
                         this.demo.bind(this);
                     }}
                   >
-                    Comment
+                    Answer
                   </button>
                 <div id="demo" className="collapse">
                     <br />
