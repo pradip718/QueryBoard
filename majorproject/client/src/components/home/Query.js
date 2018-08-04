@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import '../Login.css';
 import "./Home.css"
+import Post from "./Post"
 //import Google from './GoogleLogin'
 
 class query extends Component {
@@ -35,42 +36,26 @@ componentDidMount(){
     
     return (
       <div class="container">
-        <form class="form-signin" action="http://localhost:5000/queries" method="POST">
+        <form action="http://localhost:5000/queries" method="POST">
           <h2 class="form-signin-heading" color="blue">Want to ask something? ask here!</h2>
          
           <label for="inputQuery" class="sr-only">query</label> 
-          <input type="text" class="form-control" placeholder="want to ask something? ask here!" name="userquery" required/>
+          <textarea type="text" class="form-control" placeholder="want to ask something? ask here!" name="userquery" required/>
           <br/>
-          <div class="form-group">
+          <div class="form-group ">
             <input class="form-control" type="text" name="image" placeholder="image url"/>
           </div>
-
-        
           <button class="btn btn-lg btn-primary btn-block" >Ask</button>
           
         </form>
         <section>
-          <h2> here we will show the posts</h2>
+          <h2> Recent Posts</h2>
         </section>
-        {this.state.queries.map(function(item, key) {
-          return(
-        <div>
-
-        <hr/>
-        <div  className="list-group-item list-group-item-secondary row">
-          {item.name}
-          <div>
-            {item.description}
-          </div>
-
-          <div className="alignImages">
-            <img src= {item.image}/>
-        </div>
-        </div>
-         
-        </div>
-          )
-      })}
+        {this.state.queries.map((item, key) => {
+          return (<Post item={item} key={key} />)
+        }
+      )
+    }
       </div>
       
     );

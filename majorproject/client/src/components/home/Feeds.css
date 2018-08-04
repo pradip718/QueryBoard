@@ -25,3 +25,7 @@ p{
     height: 150px;
     width: 100%;
 }
+.logout{
+    margin-right: 40px;
+    margin-inline-start: 0%;
+}

@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
-import "./Home.css"
-import Comment from "./Comments";
+import "./Home.css";
+import "./ratings.css";
 import Post from "./Post"
 //styling ko lagi css ne import gardeko chu Query.css
 export default class Stories extends Component{
@@ -11,17 +11,18 @@ export default class Stories extends Component{
           userquery:'',
           username: [],          
           queries:[],
-          comment:[]
+          comment:[],
         };
       }
-      
-      
+  
     componentDidMount(){
       fetch('/query').
         then((Response)=>Response.json()).
         then(data =>{
+          //console.log("data is:",data);
             this.setState({queries:data.reverse()})
-
+            //console.log(this.state.queries[0].query);
+           // console.log("stories data",data[0].description );
           })
 
 
@@ -30,7 +31,6 @@ export default class Stories extends Component{
           fetch('/login')
           .then((Response)=>Response.json()).
             then(data =>{
-
             this.setState({username:data.name})
             console.log("name for user is:",this.state.username);
             
@@ -38,15 +38,15 @@ export default class Stories extends Component{
     }
 
 
-    render() {
-      return (
-        <div className="container">
-          {this.state.queries.map((item, key) => {
-            return (<Post item={item} key={key} />)
+      render() {
+          return (
+            <div className="container">
+              {this.state.queries.map((item, key) => {
+                return (<Post item={item} key={key} />)
+              }
+            )
           }
+        </div>
         )
       }
-        </div>
-      )
-  }
 }

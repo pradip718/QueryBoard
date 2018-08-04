@@ -13,6 +13,7 @@ var express               = require("express"),
     var url = "mongodb://localhost/";
     var Query             =require("./models/query");
     var Comment           =require("./models/comment");
+    var Blogs              =require("./models/blogs")
 
 
     
@@ -89,7 +90,7 @@ passport.authenticate('local'),function(req, res) {
  //console.log(req.user.username);
     
 });
-app.get('/login',function(req,res){
+app.get('/login',isLoggedIn,function(req,res){
     res.json({name: req.user.username,login:"true"});
 });
 
@@ -152,7 +153,7 @@ function isLoggedIn(req, res, next){
 // });
 
 //routes
-app.get("/query",function(req,res){
+app.get("/query",isLoggedIn,function(req,res){
     Query.find({},function(err,queries){
         if(err){
             console.log(err);
@@ -165,7 +166,7 @@ app.get("/query",function(req,res){
 });
 
 
-app.post("/queries",function(req,res){
+app.post("/queries",isLoggedIn,function(req,res){
         var postQuery =req.body.userquery;
         var userImages =req.body.image;
         username=req.user.username;
@@ -188,7 +189,7 @@ app.post("/queries",function(req,res){
 
 
 //Comment Post handle
-app.post("/queries/:id",function(req,res){
+app.post("/queries/:id",isLoggedIn,function(req,res){
     //res.send("Comment Added");
     Query.findById(req.params.id,function(err,query){
         if(err){
@@ -215,7 +216,7 @@ app.post("/queries/:id",function(req,res){
 
 })
 
-app.get("/queries/:id",function(req,res){
+app.get("/queries/:id",isLoggedIn,function(req,res){
     Query.findById(req.params.id).populate("comments").exec(function(err, query){
         if(err){
             console.log(err);
@@ -251,6 +252,40 @@ app.get("/queries/:id",function(req,res){
 //        }
 //     });
 //  });
+
+app.get("/Blogs",isLoggedIn,function(req,res){
+    Blogs.find({},function(err,Blogs){
+        if(err){
+            console.log(err);
+        }
+        else{
+           // console.log("queries from get",queries);
+            res.json(Blogs);
+        }
+    })
+});
  
+
+app.post("/Blogs",isLoggedIn,function(req,res){
+    var postQuery =req.body.userquery;
+    username=req.user.username;
+   //console.log("userimahe", req.body.images);
+    var newQuery = {
+        name:username,
+        description:postQuery
+    }
+    Blogs.create(newQuery,function(err,newlyCreated){
+        if(err){
+            console.log("dsfds",err);
+        }
+        else{
+            res.redirect("http://localhost:3000/expert");
+        }
+    })
+   // res.send("you hit the post route")
+});
+
+
+
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
