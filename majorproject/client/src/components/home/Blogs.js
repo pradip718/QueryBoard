@@ -94,15 +94,7 @@ render() {
         
          
    
-          <div class="file-field input-field">
-      <div class="btn">
-        <span>File</span>
-        <input name="upload" type="file"></input>
-      </div>
-      <div class="file-path-wrapper">
-        <input class="file-path validate" type="text"/>
-      </div>
-    </div>
+        
       <button class="btn btn-lg FA btn-primary" >Post</button>
     
           
