@@ -1,14 +1,21 @@
 import React from 'react';
+import StarRatingComponent from 'react-star-rating-component';
 import Comment from "./Comments";
-import "./Home.css"
+import  "./Posts.css";
+
 
 export default class Post extends React.Component{
     state = {
-       comments: []
+       comments: [],
+       rating: 0,
+    }
+
+    onStarClick(nextValue, prevValue, name) {
+      this.setState({rating: nextValue});
     }
   
     render() {
-  
+      const { rating } = this.state;
       let {item, key} = this.props;
       return (<div key={key}>
               <hr />
@@ -17,11 +24,32 @@ export default class Post extends React.Component{
                 <div className="authorName">{item.name}</div>
                 <div>{item.description}</div>
                 <br/>
-                <div>
-                    <img src= {item.image}/>
-                </div>
+                {
+                  item.image=="" ? (
+                    <div></div>
+                  ) :(
+                    <div>
+                      <img src= {item.image} className="img-thumbnail "/>
+                    </div>
+                  )
+                }
+
+
                 <hr />
-                <div>
+                <span>
+                  
+                  <p>Rate the Post: {rating}</p>
+                  <StarRatingComponent 
+                    name="rate1" 
+                    starCount={5}
+                    value={rating}
+                    onStarClick={this.onStarClick.bind(this)}
+
+                  />
+              </span>
+              <br/>
+
+                <div >
                   <button
                     className="btn btn-info"
                     data-toggle="collapse"
@@ -37,7 +65,11 @@ export default class Post extends React.Component{
                   >
                     Answer
                   </button>
-                <div id="demo" className="collapse">
+
+
+
+
+                  <div id="demo" className="collapse">
                     <br />
                     <form
                       className="commentForm"
@@ -50,7 +82,8 @@ export default class Post extends React.Component{
                         placeholder="Write a comment..."
                         name="comment"
                       />
-                      <button className="btn btn-lg btn-primary btn-block">
+                      <br/>
+                      <button className="btn btn-lg btn-primary btn-block postButton">
                         Post
                       </button>
                     </form>
@@ -63,7 +96,6 @@ export default class Post extends React.Component{
                   </div>
                 </div>
               </div>
-            </div>
-          )
-        }
+            </div>)
+  }
 }
