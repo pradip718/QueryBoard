@@ -92,9 +92,7 @@ render() {
           <label for="inputQuery" class="sr-only">query</label> 
           <textarea type="text" class="form" placeholder="Write Blog about something." name="userquery" required/>
         
-         
-   
-        
+
       <button class="btn btn-lg FA btn-primary" >Post</button>
     
           
