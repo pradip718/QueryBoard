@@ -3,10 +3,36 @@ import Comment from "./Comments";
 import "./Home.css"
 
 export default class Post extends React.Component{
-    state = {
-       comments: []
-    }
-  
+
+   
+  constructor(props){
+    super(props);
+      this.state = {
+        comments: [],
+        rating: 1,
+     }
+     
+    
+  }
+
+
+    onStarClick(nextValue, prevValue, name) {
+      let {item, key} = this.props;
+      this.setState({rating: nextValue})
+      const data = {ratings:nextValue}
+      console.log("ratings is ",nextValue);
+    //  alert(`Submitting: ${JSON.stringify(data)}`)
+    
+      fetch(
+        '/queries',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json; charset=utf-8' },
+          body: JSON.stringify(data),
+        },
+      )
+
+
     render() {
   
       let {item, key} = this.props;
@@ -14,14 +40,40 @@ export default class Post extends React.Component{
               <hr />
   
               <div className="list-group-item list-group-item-secondary row ">
-                <div className="authorName">{item.name}</div>
+                <div className="authorName">{item.name.split("@")[0]}</div>
                 <div>{item.description}</div>
                 <br/>
-                <div>
-                    <img src= {item.image}/>
-                </div>
+                {
+                  item.image=="" ? (
+                    <div></div>
+                  ) :(
+                    <div>
+                      <img src= {item.image} className="img-thumbnail "/>
+                    </div>
+                  )
+                }
+
                 <hr />
-                <div>
+                <div >{item.tags.map((tagItem, key) => {
+                  return (<span className="badge tagStyle">{tagItem}</span>)
+                })}</div>
+
+                <br/>
+                <span>
+  
+                  <p>Rate the Post: {rating}</p>
+                  <StarRatingComponent 
+                    name="rate" 
+                    starCount={5}
+                    value={rating}
+                    onStarClick={this.onStarClick.bind(this)}
+                  />
+           
+              </span>
+              <br/>
+
+                <div >
+
                   <button
                     className="btn btn-info"
                     data-toggle="collapse"
@@ -37,7 +89,9 @@ export default class Post extends React.Component{
                   >
                     Answer
                   </button>
-                <div id="demo" className="collapse">
+
+
+                  <div id="demo" className="collapse">
                     <br />
                     <form
                       className="commentForm"

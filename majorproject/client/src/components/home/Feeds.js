@@ -7,7 +7,11 @@ import Bookmarked from "./Boomarked";
 
 export default class Feeds extends Component{
     state={
-        response:""
+        response:"question"
+    }
+    constructor(){
+        super();
+        <Query/>
     }
 
     displayTitle(id){
@@ -35,7 +39,7 @@ export default class Feeds extends Component{
     }
 
      displaytitle(){
-        console.log("dfdfoil",this.state.response)
+        //console.log("dfdfoil",this.state.response)
         if(this.state.response=="question"){
             return(
             <Query/>)
@@ -55,8 +59,6 @@ export default class Feeds extends Component{
 
 
     render(){
-
- 
         return(
             <div>
                     <div className="container-fluid">

@@ -143,3 +143,19 @@ div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
     cursor: pointer;
 }
 
+
+
+.tagStyle{
+  padding: 40px;
+  position: relative;
+
+  border: 1px solid #ddd;
+  background: #eee;
+  font-size: 12px;
+  display: inline-block;
+  padding: 5px;
+  margin: 0 5px;
+  cursor: move;
+  border-radius: 2px;
+}
+
