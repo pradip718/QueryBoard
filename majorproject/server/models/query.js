@@ -9,7 +9,8 @@ var querySchema = new mongoose.Schema({
          type: mongoose.Schema.Types.ObjectId,
          ref: "Comment"
       }
-   ]
+   ],
+   tags:[]
 });
 
 

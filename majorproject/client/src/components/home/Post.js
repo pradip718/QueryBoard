@@ -34,8 +34,12 @@ export default class Post extends React.Component{
                   )
                 }
 
-
                 <hr />
+                <div >{item.tags.map((tagItem, key) => {
+                  return (<span className="badge tagStyle">{tagItem}</span>)
+                })}</div>
+
+                <br/>
                 <span>
                   
                   <p>Rate the Post: {rating}</p>
@@ -65,9 +69,6 @@ export default class Post extends React.Component{
                   >
                     Answer
                   </button>
-
-
-
 
                   <div id="demo" className="collapse">
                     <br />

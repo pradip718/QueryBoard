@@ -7,22 +7,21 @@ var express               = require("express"),
     bodyParser            = require("body-parser"),
     User                  = require("./models/user"),
     LocalStrategy         = require("passport-local"),
-    passportLocalMongoose = require("passport-local-mongoose")
+    passportLocalMongoose  = require("passport-local-mongoose")
+    var MongoClient        =require('mongodb').MongoClient;
+    var Query              =require("./models/query");
+    var Comment            =require("./models/comment");
+    var Blogs              =require("./models/blogs");
+    var Tag                =require("./models/tag");
 
-    var MongoClient = require('mongodb').MongoClient;
-    var url = "mongodb://localhost/";
-    var Query             =require("./models/query");
-    var Comment           =require("./models/comment");
-    var Blogs              =require("./models/blogs")
 
-
-    
-mongoose.connect("mongodb://localhost/databasee");
+mongoose.connect("mongodb://localhost:27017/databasee", { useNewUrlParser: true });
 var app = express();
 var Username;
 
 
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 app.use(require("express-session")({
     secret: "Rusty is the best and cutest dog in the world",
     resave: false,
@@ -166,21 +165,26 @@ app.get("/query",isLoggedIn,function(req,res){
 });
 
 
-app.post("/queries",isLoggedIn,function(req,res){
+app.post("/queries",function(req,res){
         var postQuery =req.body.userquery;
-        var userImages =req.body.image;
-        username=req.user.username;
-       //console.log("userimahe", req.body.images);
+        var userImage   =req.body.image;
+       let username=req.user.username;
+        let tag=req.body.tags;
+      // console.log("parse body",JSON.parse(req.body));
+      //  console.log("tags are:-",req.body)
+        
         var newQuery = {
             name:username,
-            image:userImages,
-            description:postQuery
+            image:userImage,
+            description:postQuery,
+            tags:tag
         }
         Query.create(newQuery,function(err,newlyCreated){
             if(err){
                 console.log("dsfds",err);
             }
             else{
+
                 res.redirect("http://localhost:3000/home");
             }
         })
@@ -208,12 +212,10 @@ app.post("/queries/:id",isLoggedIn,function(req,res){
                     query.comments.push(comment);
                     query.save();
                     res.redirect("http://localhost:3000/home");
-
                 }
             })
         }
     });
-
 })
 
 app.get("/queries/:id",isLoggedIn,function(req,res){
