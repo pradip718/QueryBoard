@@ -99,7 +99,7 @@ onSubmit = e => {
 
     return (
       <div class="container">
-            <form action="/queries" method="POST" onSubmit={this.onSubmit}>
+            <form action="http://localhost:5000/queries" method="POST" onSubmit={this.onSubmit}>
               <h2 class="form-signin-heading" color="blue">Want to ask something? ask here!</h2>
               <label for="inputQuery" class="sr-only">query</label> 
               <textarea type="text" class="form-control" placeholder="want to ask something? ask here!" name="userquery"onChange={this.onChange} defaultValue={userquery} required/>
@@ -122,6 +122,7 @@ onSubmit = e => {
             <br/>
               <button class="btn btn-lg btn-primary btn-block" >Ask</button>
             </form>
+            <br/>
             <section>
               <h2> Recent Posts</h2>
             </section>

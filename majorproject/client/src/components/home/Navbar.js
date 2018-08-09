@@ -5,12 +5,12 @@ import './Feeds.css';
 
     export default class Navbar extends Component{
         state = {
-            username: [],
+            username: String,
             response:[]
         }
         constructor(){
             super();
-
+            this.delay();
         }
         delay(){
             fetch('/login')
@@ -19,9 +19,10 @@ import './Feeds.css';
                //    JSON.parse(data);
                //    console.log("data from navbar",data.username);
 
-               console.log( typeof(data));
-               console.log(JSON.parse(data));
-              })
+             //  console.log( typeof(data));
+               console.log("username is :",data.name.split("@"));
+                this.setState({username:data.name})
+            })
         }
 
         componentDidMount() {
@@ -37,7 +38,7 @@ import './Feeds.css';
             return(
                 <div>
                 
-                    <nav className="navbar navbar-expand-lg navbar navbar-dark bg-primary">
+                    <nav className="navbar navbar-expand-lg navbar navbar-dark bg-primary ">
                         <a className="navbar-brand" href="/home">QueryBoard</a>
                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,7 +51,7 @@ import './Feeds.css';
                             <a className="nav-link active" href="/home">Home <span className="sr-only">(current)</span></a>
                             </li>
                             <li className="nav-item">
-                            <a className="nav-link active" href="/expert">Expert</a>
+                            <a className="nav-link " href="/expert">Expert</a>
                             </li>
                             <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -64,8 +65,6 @@ import './Feeds.css';
                                 <div className="dropdown-divider"></div>
                                 <a className="dropdown-item" href="/">Something else here</a>
                             </div>
-                            </li>
-                            <li> {this.state.username}
                             </li>
                            {/* <li className="nav-item">
                                 <a className="nav-link disabled" href="/"></a>
@@ -85,9 +84,15 @@ import './Feeds.css';
                      <button className="btn btn-success button5     " type="button" data-toggle="dropdown">P
                      <span className="caret"></span></button>
                      <ul className="dropdown-menu dropdown-menu-left ">
-                       <li><a href="/login">Sign Out</a></li>
-                       <li><a href="#">CSS</a></li>
-                       <li><a href="#">JavaScript</a></li>
+                     <li>
+                        <div className="bg-secondary text-white">
+                            <a href="#" >{this.state.username.split("@")[0]}
+                                <div>{this.state.username}</div>
+                            </a>
+                        </div>
+                    </li>
+                     <li><a href="/login">Sign Out</a></li>
+                       <li><a href="#">Help</a></li>
                      </ul>
                    </div>
 

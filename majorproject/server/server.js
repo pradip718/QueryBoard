@@ -171,7 +171,7 @@ app.post("/queries",function(req,res){
        let username=req.user.username;
         let tag=req.body.tags;
       // console.log("parse body",JSON.parse(req.body));
-      //  console.log("tags are:-",req.body)
+        console.log("tags are:-",req.body)
         
         var newQuery = {
             name:username,
@@ -184,7 +184,6 @@ app.post("/queries",function(req,res){
                 console.log("dsfds",err);
             }
             else{
-
                 res.redirect("http://localhost:3000/home");
             }
         })

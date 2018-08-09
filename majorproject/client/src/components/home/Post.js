@@ -5,15 +5,35 @@ import  "./Posts.css";
 
 
 export default class Post extends React.Component{
-    state = {
-       comments: [],
-       rating: 0,
-    }
+    
+  constructor(props){
+    super(props);
+      this.state = {
+        comments: [],
+        rating: 1,
+     }
+     
+    
+  }
+
 
     onStarClick(nextValue, prevValue, name) {
-      this.setState({rating: nextValue});
+      let {item, key} = this.props;
+      this.setState({rating: nextValue})
+      const data = {ratings:nextValue}
+      console.log("ratings is ",nextValue);
+    //  alert(`Submitting: ${JSON.stringify(data)}`)
+    
+      fetch(
+        '/queries',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json; charset=utf-8' },
+          body: JSON.stringify(data),
+        },
+      )
     }
-  
+
     render() {
       const { rating } = this.state;
       let {item, key} = this.props;
@@ -21,7 +41,7 @@ export default class Post extends React.Component{
               <hr />
   
               <div className="list-group-item list-group-item-secondary row ">
-                <div className="authorName">{item.name}</div>
+                <div className="authorName">{item.name.split("@")[0]}</div>
                 <div>{item.description}</div>
                 <br/>
                 {
@@ -41,15 +61,15 @@ export default class Post extends React.Component{
 
                 <br/>
                 <span>
-                  
+  
                   <p>Rate the Post: {rating}</p>
                   <StarRatingComponent 
-                    name="rate1" 
+                    name="rate" 
                     starCount={5}
                     value={rating}
                     onStarClick={this.onStarClick.bind(this)}
-
                   />
+           
               </span>
               <br/>
 
