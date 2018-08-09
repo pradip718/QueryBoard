@@ -12,6 +12,7 @@ const KeyCodes = {
 };
 
 const delimiters = [KeyCodes.comma, KeyCodes.enter];
+
 class query extends Component {
 
   constructor() {
@@ -30,13 +31,14 @@ class query extends Component {
         { id: 'bootstrap', text: 'bootstrap' },
         { id: 'python', text: 'python' },
         { id: 'c++', text: 'c++' }
-     ]
+
     };
 
     this.handleDelete = this.handleDelete.bind(this);
     this.handleAddition = this.handleAddition.bind(this);
     this.handleDrag = this.handleDrag.bind(this);
   }
+
 
   onChange = (e) => {
     const state = this.state
@@ -99,6 +101,7 @@ onSubmit = e => {
 
     return (
       <div class="container">
+
             <form action="http://localhost:5000/queries" method="POST" onSubmit={this.onSubmit}>
               <h2 class="form-signin-heading" color="blue">Want to ask something? ask here!</h2>
               <label for="inputQuery" class="sr-only">query</label> 
@@ -131,6 +134,7 @@ onSubmit = e => {
               return (<Post item={item} key={key} />)
             }
           )
+
         }
       </div>
     );

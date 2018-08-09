@@ -57,7 +57,7 @@ render(){
                       <img src={item.urlToImage} alt="http://www.bsmc.net.au/wp-content/uploads/No-image-available.jpg" className="square"/>
                       </div>
                      </div> 
-                
+              
                 )
              
              })}
