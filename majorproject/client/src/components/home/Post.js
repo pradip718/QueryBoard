@@ -10,26 +10,37 @@ export default class Post extends React.Component{
     super(props);
       this.state = {
         comments: [],
-        rating: 1,
+        rating: 0,
+        averageRating:String
      }
      
-    
+  }
+
+  componentDidMount(){
+    let {item, key} = this.props;
+    fetch('/queries/ratings/'+item._id).
+      then((Response)=>Response.json()).
+      then(data =>{
+        console.log("data is:", data);
+          this.setState({averageRating:data.average})
+      console.log("avaerae raitng is",this.state.averageRating)
+
+      })
   }
 
 
     onStarClick(nextValue, prevValue, name) {
       let {item, key} = this.props;
       this.setState({rating: nextValue})
-      const data = {ratings:nextValue}
       console.log("ratings is ",nextValue);
     //  alert(`Submitting: ${JSON.stringify(data)}`)
     
       fetch(
-        '/queries',
+        'http://localhost:5000/queries/ratings/'+item._id,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json; charset=utf-8' },
-          body: JSON.stringify(data),
+          body: JSON.stringify({rating: nextValue}),
         },
       )
     }
@@ -67,9 +78,21 @@ export default class Post extends React.Component{
                     name="rate" 
                     starCount={5}
                     value={rating}
+    
                     onStarClick={this.onStarClick.bind(this)}
                   />
            
+              </span>
+              <span>
+                <p>Average Rating: {this.state.averageRating}</p>
+                <StarRatingComponent 
+                  name="rate" 
+                  starCount={5}
+                  editing={false}
+                  renderStarIcon={() => <span>❤</span>}
+                  value={this.state.averageRating}
+                  onStarClick={this.onStarClick.bind(this)}
+                />
               </span>
               <br/>
 

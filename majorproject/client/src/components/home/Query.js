@@ -112,6 +112,7 @@ onSubmit = e => {
               <ReactTags 
                   name='tags'
                   tags={tags}
+                  editing={false}
                   suggestions={suggestions}
                   handleDelete={this.handleDelete}
                   handleAddition={this.handleAddition}

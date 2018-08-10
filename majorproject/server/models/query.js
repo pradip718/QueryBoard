@@ -10,7 +10,8 @@ var querySchema = new mongoose.Schema({
          ref: "Comment"
       }
    ],
-   tags:[]
+   tags:[],
+   ratings:[]
 });
 
 

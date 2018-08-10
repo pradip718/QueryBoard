@@ -6,6 +6,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Home from './components/home/Home';
 import Expert from './components/home/Expert';
+import Landing from './components/home/Landing';
 
 import { BrowserRouter as Router, Route,Redirect,Link,Switch } from 'react-router-dom';
 
@@ -57,6 +58,7 @@ class App extends Component {
             <Route path='/register' component={Register} />
             <Route path="/home"  component={Home} />
             <Route path="/expert" component={Expert}/>
+            <Route path="/landing" component={Landing}/>
           </div>
         </Router>
       </div>
