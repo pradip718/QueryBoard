@@ -12,7 +12,6 @@ var express               = require("express"),
     var Query              =require("./models/query");
     var Comment            =require("./models/comment");
     var Blogs              =require("./models/blogs");
-    var Tag                =require("./models/tag");
 
 
 mongoose.connect("mongodb://localhost:27017/databasee", { useNewUrlParser: true });
@@ -286,7 +285,41 @@ app.post("/Blogs",isLoggedIn,function(req,res){
    // res.send("you hit the post route")
 });
 
+//ratings
+app.post("/queries/ratings/:id",function(req,res){
+    console.log(req.body);
+    rating=req.body.rating;
+    Query.findById(req.params.id,function(err,query){
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log(query);
+            query.ratings.push(rating);
+            query.save();
+        }
+    })
+})
 
+app.get("/queries/ratings/:id",function(req,res){
+    Query.findById(req.params.id,function(err,query){
+        if(err){
+            console.log(err);
+        }
+        else{
+           var ratings=query.ratings;
+           var sum = 0;
+           for( var i = 0; i < ratings.length; i++ ){
+               sum += parseInt( ratings[i], 10 ); //don't forget to add the base
+           }
+
+           var avg = Math.round(sum/ratings.length);
+           query.avgRating=avg;
+           query.save();
+           res.json({"average":avg});
+        }
+    })
+})
 
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

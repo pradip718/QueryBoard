@@ -9,3 +9,20 @@
     
     vertical-align: 50%;
 }
+
+.userRating{
+    float:left;
+}
+.averageRating{
+    float: right;
+}
+
+.answerButton{
+    position: relative;
+    margin-top: 10%;
+}
+.imageAlign{
+    height: 300px;
+    width: 70%;
+    margin-left: 15%
+}

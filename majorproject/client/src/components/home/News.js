@@ -54,7 +54,7 @@ render(){
                             {item.title}
                             <span>...<a href={item.url}>Continue Reading</a></span>
                       </li>
-                      <img src={item.urlToImage} alt="http://www.bsmc.net.au/wp-content/uploads/No-image-available.jpg" className="square"/>
+                      <img src={item.urlToImage}  alt="No Image Available" className="square"/>
                       </div>
                      </div> 
               
