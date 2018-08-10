@@ -12,7 +12,6 @@ var express               = require("express"),
     var Query              =require("./models/query");
     var Comment            =require("./models/comment");
     var Blogs              =require("./models/blogs");
-    var Tag                =require("./models/tag");
 
 
 mongoose.connect("mongodb://localhost:27017/databasee", { useNewUrlParser: true });
@@ -315,6 +314,8 @@ app.get("/queries/ratings/:id",function(req,res){
            }
 
            var avg = Math.round(sum/ratings.length);
+           query.avgRating=avg;
+           query.save();
            res.json({"average":avg});
         }
     })

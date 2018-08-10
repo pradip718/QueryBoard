@@ -48,6 +48,7 @@ export default class Post extends React.Component{
     render() {
       const { rating } = this.state;
       let {item, key} = this.props;
+     
       return (<div key={key}>
               <hr />
   
@@ -60,7 +61,7 @@ export default class Post extends React.Component{
                     <div></div>
                   ) :(
                     <div>
-                      <img src= {item.image} className="img-thumbnail "/>
+                      <img src= {item.image} className="img-thumbnail imageAlign"/>
                     </div>
                   )
                 }
@@ -71,9 +72,9 @@ export default class Post extends React.Component{
                 })}</div>
 
                 <br/>
-                <span>
+                <span className="userRating">
   
-                  <p>Rate the Post: {rating}</p>
+                  <p><strong>Rate the Post:</strong> {rating}</p>
                   <StarRatingComponent 
                     name="rate" 
                     starCount={5}
@@ -81,10 +82,10 @@ export default class Post extends React.Component{
     
                     onStarClick={this.onStarClick.bind(this)}
                   />
-           
               </span>
-              <span>
-                <p>Average Rating: {this.state.averageRating}</p>
+              
+              <span className="averageRating">
+                <p><strong>Average Rating:</strong> {this.state.averageRating}</p>
                 <StarRatingComponent 
                   name="rate" 
                   starCount={5}
@@ -95,8 +96,8 @@ export default class Post extends React.Component{
                 />
               </span>
               <br/>
-
-                <div >
+                
+                <div className="answerButton">
                   <button
                     className="btn btn-info"
                     data-toggle="collapse"

@@ -11,7 +11,8 @@ var querySchema = new mongoose.Schema({
       }
    ],
    tags:[],
-   ratings:[]
+   ratings:[],
+   avgRating:Number,
 });
 
 
