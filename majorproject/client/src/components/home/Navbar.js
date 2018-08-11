@@ -1,12 +1,14 @@
 import React,{Component} from 'react';
 import './Home.css';
 import './Feeds.css';
+import Bookmarked from './Boomarked';
 {/*import { Navbar, Nav,NavItem, NavDropdown, MenuItem,Jumbotron } from 'react-bootstrap';*/}
 
     export default class Navbar extends Component{
         state = {
             username: String,
-            response:[]
+            response:[],
+            searchItem: '',
         }
         constructor(){
             super();
@@ -34,7 +36,24 @@ import './Feeds.css';
 
 
           };
+
+          onChange = (e) => {
+            const state = this.state
+            state[e.target.name] = e.target.value;
+            this.setState(state);
+          }
+
+          onSubmit = e => {
+            e.preventDefault();
+            let {searchItem}=this.state;
+            console.log("Search item is:-",searchItem);
+            <Bookmarked searchItem={searchItem}/>
+        }
+
+
         render(){
+           const {searchItem}=this.state;
+
             return(
                 <div>
                 
@@ -71,8 +90,8 @@ import './Feeds.css';
                                 </li>*/}
                         </ul>
                         
-                        <form className="form-inline ">
-                            <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" size='80'/>
+                        <form className="form-inline " onSubmit={this.onSubmit}>
+                            <input className="form-control mr-sm-2" type="search" name="searchItem" onChange={this.onChange} placeholder="Search" aria-label="Search" size='80' defaultValue={searchItem}/>
                             <button className="btn btn-danger my-2 my-sm-0" type="submit" >Search</button>
                         </form>
 

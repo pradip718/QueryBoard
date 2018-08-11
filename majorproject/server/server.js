@@ -151,13 +151,14 @@ function isLoggedIn(req, res, next){
 // });
 
 //routes
-app.get("/query",isLoggedIn,function(req,res){
+app.get("/query",function(req,res){
     Query.find({},function(err,queries){
         if(err){
             console.log(err);
         }
         else{
            // console.log("queries from get",queries);
+           //console( Date.now)
             res.json(queries);
         }
     })
@@ -169,14 +170,16 @@ app.post("/queries",function(req,res){
         var userImage   =req.body.image;
        let username=req.user.username;
         let tag=req.body.tags;
+        let time=req.body.now;
+       
       // console.log("parse body",JSON.parse(req.body));
         console.log("tags are:-",req.body)
-        
         var newQuery = {
             name:username,
             image:userImage,
             description:postQuery,
-            tags:tag
+            tags:tag,
+            date:time,
         }
         Query.create(newQuery,function(err,newlyCreated){
             if(err){
@@ -312,7 +315,6 @@ app.get("/queries/ratings/:id",function(req,res){
            for( var i = 0; i < ratings.length; i++ ){
                sum += parseInt( ratings[i], 10 ); //don't forget to add the base
            }
-
            var avg = Math.round(sum/ratings.length);
            query.avgRating=avg;
            query.save();

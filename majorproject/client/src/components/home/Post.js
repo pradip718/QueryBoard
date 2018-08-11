@@ -2,6 +2,7 @@ import React from 'react';
 import StarRatingComponent from 'react-star-rating-component';
 import Comment from "./Comments";
 import  "./Posts.css";
+import moment from "moment";
 
 
 export default class Post extends React.Component{
@@ -54,7 +55,9 @@ export default class Post extends React.Component{
   
               <div className="list-group-item list-group-item-secondary row ">
                 <div className="authorName">{item.name.split("@")[0]}</div>
-                <div>{item.description}</div>
+                <div className="text-secondary">{moment(item.date).fromNow()}</div>
+                <br/>
+                <div className="text-dark">{item.description}</div>
                 <br/>
                 {
                   item.image=="" ? (
@@ -124,7 +127,7 @@ export default class Post extends React.Component{
                       <input
                         type="text"
                         className="form-control"
-                        placeholder="Write a comment..."
+                        placeholder="Write your answer..."
                         name="comment"
                       />
                       <br/>
