@@ -107,49 +107,7 @@ function isLoggedIn(req, res, next){
     res.redirect("/login");
 }
 
-// app.get("/username",function(req,res){
-//     MongoClient.connect(url, function(err, db) {
-//       if (err) throw err;
-//       var dbo = db.db("databasee");
-//       dbo.collection("users").find({}).toArray(function(err, result) {
-//         if (err) throw err;
-//         User.find({username:Username},function(err,user){
-//             if(err){
-//                 console.log(err);
-//             }
-//             else{
-//                 // console.log(Username);
-//                 // console.log(user);
-//                 res.send(user);
-               
-//             }
-//         })
-//         //console.log(result);
-//         db.close();
-//       });
-//     });
-// });
 
-
-//from prefinal major
-// var querySchema = new mongoose.Schema({
-//     query : String
-// }) 
-
-// var Query =mongoose.model("Query",querySchema);
-
-// Query.create({
-//     name: "pradip",
-//     description:"How much powerful is JavaScript in 2018"
-// },function(err,query){
-//     if(err){
-//         console.log(err);
-//     }
-//     else{
-//         console.log("Newly created Query");
-//         //console.log(query);
-//     }
-// });
 
 //routes
 app.get("/query",isLoggedIn,function(req,res){
@@ -168,10 +126,10 @@ app.get("/query",isLoggedIn,function(req,res){
 app.post("/queries",function(req,res){
         var postQuery =req.body.userquery;
         var userImage   =req.body.image;
-       let username=req.user.username;
+          let username=req.user.username;
         let tag=req.body.tags;
       // console.log("parse body",JSON.parse(req.body));
-        console.log("tags are:-",req.body)
+       // console.log("tags are:-",req.body)
         
         var newQuery = {
             name:username,
@@ -217,14 +175,61 @@ app.post("/queries/:id",isLoggedIn,function(req,res){
     });
 })
 
+
+
+app.post("/queries/comment/ratings/:id",isLoggedIn,function(req,res){
+    //res.send("Comment Added");
+    Comment.findById(req.params.id,function(err,commentRating){
+       
+       
+        if(err){
+            console.log(err);
+        }
+        else{
+            commentRating.rating.push(req.body.ratings);
+            commentRating.save();
+
+
+            //console.log("query is:",comment);
+           
+            //console.log(commentRating.rating);
+        }
+        
+    });
+})
+
+app.get("/queries/comment/ratings/:id",function(req,res){
+
+Comment.findById(req.params.id,function(err,commentRating){
+    if(err){
+        console.log(err);
+    } else {
+       var ratings=commentRating.rating;
+       console.log(ratings);
+       var sum =0;
+       for(var i=0; i<ratings.length;i++){
+           sum += parseInt(ratings[i],10);
+       }
+       console.log("sum",sum);
+       // res.json("sum =",sum);
+       res.json({"sum is:":sum})
+    }
+});
+
+
+});
+
+
+
+
+
+
 app.get("/queries/:id",isLoggedIn,function(req,res){
     Query.findById(req.params.id).populate("comments").exec(function(err, query){
         if(err){
             console.log(err);
         } else {
-            //console.log(query);
-            //render show template with that campground
-            //res.render("campgrounds/show", {campground: foundCampground});
+           
             res.json(query);
         }
     });
@@ -275,6 +280,7 @@ app.post("/Blogs",isLoggedIn,function(req,res){
         name:username,
         description:postQuery
     }
+    if(sum>=20){
     Blogs.create(newQuery,function(err,newlyCreated){
         if(err){
             console.log("dsfds",err);
@@ -283,10 +289,13 @@ app.post("/Blogs",isLoggedIn,function(req,res){
             res.redirect("http://localhost:3000/expert");
         }
     })
+
+}
+else{
+    res.send("you are not qualified to post.");
+}
    // res.send("you hit the post route")
 });
-
-
 
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

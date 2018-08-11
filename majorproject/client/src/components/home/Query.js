@@ -30,9 +30,9 @@ class query extends Component {
         { id: 'express', text: 'express' },
         { id: 'bootstrap', text: 'bootstrap' },
         { id: 'python', text: 'python' },
-        { id: 'c++', text: 'c++' }
-
-    };
+        { id: 'c++', text: 'c++' },
+    ]
+    }
 
     this.handleDelete = this.handleDelete.bind(this);
     this.handleAddition = this.handleAddition.bind(this);

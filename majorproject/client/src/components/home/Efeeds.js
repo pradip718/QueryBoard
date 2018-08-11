@@ -5,7 +5,7 @@ import Query from "./Stories";
 import Blogs from "./Blogs"
 export default class Efeeds extends Component{
     state={
-        response:""
+        response:"Blogs"
     }
 
     displayTitle(id){

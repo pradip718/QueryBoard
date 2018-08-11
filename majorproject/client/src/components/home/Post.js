@@ -1,6 +1,7 @@
 import React from 'react';
 import Comment from "./Comments";
-import "./Home.css"
+import "./Home.css";
+import StarRatingComponent from 'react-star-rating-component';
 
 export default class Post extends React.Component{
 
@@ -9,7 +10,7 @@ export default class Post extends React.Component{
     super(props);
       this.state = {
         comments: [],
-        rating: 1,
+        rating: 0,
      }
      
     
@@ -31,10 +32,12 @@ export default class Post extends React.Component{
           body: JSON.stringify(data),
         },
       )
+    }
 
 
     render() {
   
+      const { rating } = this.state;
       let {item, key} = this.props;
       return (<div key={key}>
               <hr />
@@ -82,7 +85,7 @@ export default class Post extends React.Component{
                       return fetch("/queries/" + item._id)
                         .then(Response => Response.json())
                         .then(data => {
-                          this.setState({ comments: data.comments });
+                          this.setState({ comments: data.comments,rating: data.rating });
                         });
                         this.demo.bind(this);
                     }}
@@ -104,20 +107,25 @@ export default class Post extends React.Component{
                         placeholder="Write a comment..."
                         name="comment"
                       />
+                      
+
                       <button className="btn btn-lg btn-primary btn-block">
                         Post
                       </button>
                     </form>
                     <br/>
+                  
                     <div>
-                      {this.state.comments.map((commentItem, key) => {
-                        return (<Comment commentItem={commentItem} key={key} />)
-                      })}
+                    {this.state.comments.map((commentItem, key) => {
+                        return (<Comment commentItem={commentItem} key={key} />)           
+                      })  
+                    } 
                     </div>
+                  
                   </div>
                 </div>
               </div>
             </div>
           )
         }
-}
+      }

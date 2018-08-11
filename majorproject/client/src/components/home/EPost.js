@@ -73,7 +73,7 @@ export default class Post extends React.Component{
                     <br />
                     <form
                       className="commentForm"
-                      action={"http://localhost:5000/Blogs/" + item._id}
+                      action={"http://localhost:5000/Blog/" + item._id}
                       method="POST"
                     >
                       <input
