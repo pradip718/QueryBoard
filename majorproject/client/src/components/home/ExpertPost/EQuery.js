@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
-import '../Login.css';
-import "./Home.css";
-import Post from "./Post";
-import Home from './Home'
+
+import "../Home.css";
+import Post from "./Expost";
 import { WithContext as ReactTags } from 'react-tag-input';
 
 const KeyCodes = {
@@ -23,6 +22,7 @@ class query extends Component {
       queries:[],
       image:[],
       tags: [],
+      ratings:[],
     suggestions: [
         { id: "Javascript", text: "Javascript" },
         { id: "Java", text: "Java" },
@@ -48,22 +48,24 @@ class query extends Component {
   }
 
 componentDidMount(){
-  fetch('/query').
+  fetch('/Equery').
     then((Response)=>Response.json()).
     then(data =>{
       console.log("data is:",data);
-      this.setState({queries:data.reverse()})
-      // this.setState({queries:data.sort(function(a, b) {
-      //   return parseFloat(b.avgRating) - parseFloat(a.avgRating);
-      //    })
-      //   })
-
-      //  var result= this.state.queries.sort(function(a, b) {
-      //     return parseFloat(b.avgRating) - parseFloat(a.avgRating);
-      // });
-
-        //console.log("item is",result);
+        this.setState({queries:data.reverse()})
+        console.log(this.state.queries[0].description);
     })
+
+
+
+    fetch('/login')
+    .then((Response)=>Response.json()).
+      then(data =>{
+      this.setState({username:data.name});
+      this.setState({ratings:data.rating})
+      console.log("name for user is:",this.state.username);
+      
+      })
 }
 
 handleDelete(i) {
@@ -91,13 +93,12 @@ handleDrag(tag, currPos, newPos) {
 
 onSubmit = e => {
   e.preventDefault()
-  let now = new Date();
   const {userquery,image, tags} = this.state
-  const data = {userquery,image,now, tags: tags.map(x => x.id)}
+  const data = {userquery,image, tags: tags.map(x => x.id)}
 //  alert(`Submitting: ${JSON.stringify(data)}`)
 
   fetch(
-    '/queries',
+    '/EQuery',
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json; charset=utf-8' },
@@ -113,19 +114,19 @@ onSubmit = e => {
     return (
       <div class="container">
 
-            <form action="http://localhost:5000/queries" method="POST" onSubmit={this.onSubmit}>
-              <h2 class="form-signin-heading" color="blue">Want to ask something? ask here!</h2>
+            <form action="http://localhost:5000/EQuery" method="POST" onSubmit={this.onSubmit}>
+              <h2 class="form-signin-heading" color="blue">ask to expert!</h2>
               <label for="inputQuery" class="sr-only">query</label> 
-              <textarea type="text" class="form-control" placeholder="want to ask something? ask here!" name="userquery"onChange={this.onChange} defaultValue={userquery} required/>
+              <textarea type="text" class="form-control" placeholder="place your query!" name="userquery"onChange={this.onChange} defaultValue={userquery} required/>
               <br/>
               <div class="form-group ">
                 <input class="form-control" type="text" name="image" placeholder="image url" onChange={this.onChange} defaultValue={image}/>
               </div>
+
               <div class="form-group ">
               <ReactTags 
                   name='tags'
                   tags={tags}
-                  editing={false}
                   suggestions={suggestions}
                   handleDelete={this.handleDelete}
                   handleAddition={this.handleAddition}
@@ -133,9 +134,8 @@ onSubmit = e => {
                   delimiters={delimiters}
                   required/>
             </div>
-
+            <br/>
               <button class="btn btn-lg btn-primary btn-block" >Ask</button>
-
             </form>
             <br/>
             <section>

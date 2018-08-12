@@ -12,11 +12,7 @@ var querySchema = new mongoose.Schema({
    ],
    tags:[],
 
-   ratings:[],
-   avgRating:Number,
-   date:String
-
 });
 
 
-module.exports = mongoose.model("Query", querySchema);
+module.exports = mongoose.model("EQuery", querySchema);

@@ -1,11 +1,11 @@
 import React,{Component} from 'react';
 import './Feeds.css';
 //import News from "./News";
-import Query from "./Stories";
+import Query from "./ExpertPost/EQuery";
 import Blogs from "./Blogs"
 export default class Efeeds extends Component{
     state={
-        response:""
+        response:"Blogs"
     }
 
     displayTitle(id){
@@ -69,7 +69,7 @@ export default class Efeeds extends Component{
                                     </tr>
                                     <tr>
                                         <th scope="row">2</th>
-                                        <td id="question" onClick={()=>this.displayTitle("question")}>QueryBoard</td>
+                                        <td id="question" onClick={()=>this.displayTitle("question")}>Query to Experts</td>
                                         
                                         
                                     </tr>

@@ -1,9 +1,11 @@
 import React from 'react';
 import Comment from "./Comments";
 
+
 import  "./Posts.css";
 import moment from "moment";
 import Google from './GoogleApi';
+
 
 
 
@@ -15,9 +17,11 @@ export default class Post extends React.Component{
       this.state = {
         comments: [],
         rating: 0,
+
         averageRating:String,
         username:String,
         googleApi:String
+
      }
   }
 
@@ -67,10 +71,12 @@ export default class Post extends React.Component{
           body: JSON.stringify({rating: nextValue}),
         },
       )
+    }
 
 
     render() {
   
+      const { rating } = this.state;
       let {item, key} = this.props;
      
       return (<div key={key}>
@@ -133,7 +139,7 @@ export default class Post extends React.Component{
                       return fetch("/queries/" + item._id)
                         .then(Response => Response.json())
                         .then(data => {
-                          this.setState({ comments: data.comments });
+                          this.setState({ comments: data.comments,rating: data.rating });
                         });
                         this.demo.bind(this);
                     }}
@@ -167,20 +173,25 @@ export default class Post extends React.Component{
                         placeholder="Write your answer..."
                         name="comment"
                       />
+                      
+
                       <button className="btn btn-lg btn-primary btn-block">
                         Post
                       </button>
                     </form>
                     <br/>
+                  
                     <div>
-                      {this.state.comments.map((commentItem, key) => {
-                        return (<Comment commentItem={commentItem} key={key} />)
-                      })}
+                    {this.state.comments.map((commentItem, key) => {
+                        return (<Comment commentItem={commentItem} key={key} />)           
+                      })  
+                    } 
                     </div>
+                  
                   </div>
                 </div>
               </div>
             </div>
           )
         }
-}
+      }
