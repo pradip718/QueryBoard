@@ -57,7 +57,7 @@ render(){
                       <img src={item.urlToImage}  alt="No Image Available" className="square"/>
                       </div>
                      </div> 
-                
+              
                 )
              
              })}

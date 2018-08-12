@@ -144,6 +144,7 @@ div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
 }
 
 
+
 .tagStyle{
   padding: 40px;
   position: relative;
@@ -157,3 +158,4 @@ div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
   cursor: move;
   border-radius: 2px;
 }
+

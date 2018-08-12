@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+
 import "./Home.css";
 import "./ratings.css";
 import Post from "./Post"
@@ -60,3 +61,4 @@ export default class Bookmarked extends Component{
         )
       }
 }
+

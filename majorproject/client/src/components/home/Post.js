@@ -1,13 +1,15 @@
 import React from 'react';
-import StarRatingComponent from 'react-star-rating-component';
 import Comment from "./Comments";
+
 import  "./Posts.css";
 import moment from "moment";
 import Google from './GoogleApi';
 
 
+
 export default class Post extends React.Component{
-    
+
+   
   constructor(props){
     super(props);
       this.state = {
@@ -65,10 +67,10 @@ export default class Post extends React.Component{
           body: JSON.stringify({rating: nextValue}),
         },
       )
-    }
+
 
     render() {
-      const { rating } = this.state;
+  
       let {item, key} = this.props;
      
       return (<div key={key}>
@@ -120,6 +122,7 @@ export default class Post extends React.Component{
                 />
               </span>
               <br/>
+
                 
                 <div className="answerButton">
                   <button
@@ -137,6 +140,7 @@ export default class Post extends React.Component{
                   >
                     Answer
                   </button>
+
 
                   <div id="demo" className="collapse">
                     <br />
@@ -163,8 +167,7 @@ export default class Post extends React.Component{
                         placeholder="Write your answer..."
                         name="comment"
                       />
-                      <br/>
-                      <button className="btn btn-lg btn-primary btn-block postButton">
+                      <button className="btn btn-lg btn-primary btn-block">
                         Post
                       </button>
                     </form>
@@ -177,6 +180,7 @@ export default class Post extends React.Component{
                   </div>
                 </div>
               </div>
-            </div>)
-  }
+            </div>
+          )
+        }
 }
