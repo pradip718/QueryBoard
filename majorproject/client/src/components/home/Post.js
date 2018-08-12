@@ -1,6 +1,11 @@
 import React from 'react';
 import Comment from "./Comments";
-import "./Home.css"
+
+import  "./Posts.css";
+import moment from "moment";
+import Google from './GoogleApi';
+
+
 
 export default class Post extends React.Component{
 
@@ -10,9 +15,10 @@ export default class Post extends React.Component{
       this.state = {
         comments: [],
         rating: 0,
-        averageRating:String
+        averageRating:String,
+        username:String,
+        googleApi:String
      }
-     
   }
 
   componentDidMount(){
@@ -25,6 +31,25 @@ export default class Post extends React.Component{
       console.log("avaerae raitng is",this.state.averageRating)
 
       })
+
+      //fetch log in username
+      fetch('/login')
+      .then((Response)=>Response.json()).
+        then(data =>{
+
+        this.setState({username:data.name})
+        //console.log("name for user is:",this.state.username);
+        
+        })
+
+      //fetching queries result from google
+      // fetch('https://www.googleapis.com/customsearch/v1?key=AIzaSyBz9GnWn7AErndH9HFHjaqEEnd8iQEoiaE&cx=017576662512468239146:omuauf_lfve&q='+item.description).
+      // then((Response)=>Response.json()).
+      // then(data =>{
+      //   console.log("data is:", data.items[0].title);
+      //   this.setState({googleApi:data.items[0].title})
+        
+      // })
   }
 
 
@@ -53,7 +78,9 @@ export default class Post extends React.Component{
   
               <div className="list-group-item list-group-item-secondary row ">
                 <div className="authorName">{item.name.split("@")[0]}</div>
-                <div>{item.description}</div>
+                <div className="text-secondary">{moment(item.date).fromNow()}</div>
+                <br/>
+                <div className="text-dark">{item.description}</div>
                 <br/>
                 {
                   item.image=="" ? (
@@ -117,6 +144,18 @@ export default class Post extends React.Component{
 
                   <div id="demo" className="collapse">
                     <br />
+                    
+                  {this.state.username==item.name?(
+                    <div>
+                      <Google description={item.description}/>
+
+                    </div>
+                  ):(
+                    <div></div>
+                  )}
+                  <br/>
+
+
                     <form
                       className="commentForm"
                       action={"http://localhost:5000/queries/" + item._id}
@@ -125,7 +164,7 @@ export default class Post extends React.Component{
                       <input
                         type="text"
                         className="form-control"
-                        placeholder="Write a comment..."
+                        placeholder="Write your answer..."
                         name="comment"
                       />
                       <button className="btn btn-lg btn-primary btn-block">

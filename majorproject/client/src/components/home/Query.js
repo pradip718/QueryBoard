@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import '../Login.css';
 import "./Home.css";
 import Post from "./Post";
+import Home from './Home'
 import { WithContext as ReactTags } from 'react-tag-input';
 
 const KeyCodes = {
@@ -90,8 +91,9 @@ handleDrag(tag, currPos, newPos) {
 
 onSubmit = e => {
   e.preventDefault()
+  let now = new Date();
   const {userquery,image, tags} = this.state
-  const data = {userquery,image, tags: tags.map(x => x.id)}
+  const data = {userquery,image,now, tags: tags.map(x => x.id)}
 //  alert(`Submitting: ${JSON.stringify(data)}`)
 
   fetch(
@@ -133,7 +135,7 @@ onSubmit = e => {
                   required/>
             </div>
             <br/>
-              <button class="btn btn-lg btn-primary btn-block" >Ask</button>
+              <button class="btn btn-lg btn-primary btn-block" onClick={()=><a href="#"/>}>Ask</button>
             </form>
             <br/>
             <section>

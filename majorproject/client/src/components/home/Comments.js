@@ -24,7 +24,7 @@ export default class Comments extends React.Component{
        return (<div key={key}>
         <div className="list-group-item list-group-item-success">
             <span className="authorName">
-                {commentItem.author.split("@")[0]}:-
+                {commentItem.author }:-
             </span>
             {commentItem.text}
         </div>
