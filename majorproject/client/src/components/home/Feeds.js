@@ -117,8 +117,9 @@ export default class Feeds extends Component{
                                 this.displaytitle()
                         }
                         </div>
+                        <hr/>
                         <div className="col-sm-3 textalign">
-                           <strong> Latest Tech News </strong>
+                           <strong> Latest News </strong>
                             
                             <News/>
                         </div>

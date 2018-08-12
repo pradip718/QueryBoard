@@ -12,8 +12,10 @@ var express               = require("express"),
     var Query              =require("./models/query");
     var Comment            =require("./models/comment");
     var Blogs              =require("./models/blogs");
+
     var Tag                =require("./models/tag");
     var EQuery              =require("./models/EQuery");
+
 
 mongoose.connect("mongodb://localhost:27017/try", { useNewUrlParser: true });
 var app = express();
@@ -110,13 +112,14 @@ function isLoggedIn(req, res, next){
 
 
 //routes
-app.get("/query",isLoggedIn,function(req,res){
+app.get("/query",function(req,res){
     Query.find({},function(err,queries){
         if(err){
             console.log(err);
         }
         else{
            // console.log("queries from get",queries);
+           //console( Date.now)
             res.json(queries);
         }
     })
@@ -128,14 +131,21 @@ app.post("/queries",function(req,res){
         var userImage   =req.body.image;
           let username=req.user.username;
         let tag=req.body.tags;
+        let time=req.body.now;
+       
       // console.log("parse body",JSON.parse(req.body));
+
        // console.log("tags are:-",req.body)
         
+
+
         var newQuery = {
             name:username,
             image:userImage,
             description:postQuery,
             tags:tag,
+
+            date:time,
         }
         Query.create(newQuery,function(err,newlyCreated){
             if(err){
@@ -278,16 +288,25 @@ else{
    // res.send("you hit the post route")
 });
 
+
 //experts blogging and research papers ko comment section handle garna
 
 app.post("/exqueries/:id",isLoggedIn,function(req,res){
     //res.send("Comment Added");
     Blogs.findById(req.params.id,function(err,query){
+
+//ratings
+app.post("/queries/ratings/:id",function(req,res){
+    console.log(req.body);
+    rating=req.body.rating;
+    Query.findById(req.params.id,function(err,query){
+
         if(err){
             console.log(err);
         }
         else{
             console.log(query);
+
             Comment.create({
                 text:req.body.comment,
                 author:req.user.username
@@ -405,6 +424,31 @@ app.get("/queriess/:id",isLoggedIn,function(req,res){
     });
 });
 
+            query.ratings.push(rating);
+            query.save();
+        }
+    })
+})
+
+
+app.get("/queries/ratings/:id",function(req,res){
+    Query.findById(req.params.id,function(err,query){
+        if(err){
+            console.log(err);
+        }
+        else{
+           var ratings=query.ratings;
+           var sum = 0;
+           for( var i = 0; i < ratings.length; i++ ){
+               sum += parseInt( ratings[i], 10 ); //don't forget to add the base
+           }
+           var avg = Math.round(sum/ratings.length);
+           query.avgRating=avg;
+           query.save();
+           res.json({"average":avg});
+        }
+    })
+})
 
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

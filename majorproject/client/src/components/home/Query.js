@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import '../Login.css';
 import "./Home.css";
 import Post from "./Post";
+import Home from './Home'
 import { WithContext as ReactTags } from 'react-tag-input';
 
 const KeyCodes = {
@@ -51,8 +52,17 @@ componentDidMount(){
     then((Response)=>Response.json()).
     then(data =>{
       console.log("data is:",data);
-        this.setState({queries:data.reverse()})
-        console.log(this.state.queries[0].description);
+      this.setState({queries:data.reverse()})
+      // this.setState({queries:data.sort(function(a, b) {
+      //   return parseFloat(b.avgRating) - parseFloat(a.avgRating);
+      //    })
+      //   })
+
+      //  var result= this.state.queries.sort(function(a, b) {
+      //     return parseFloat(b.avgRating) - parseFloat(a.avgRating);
+      // });
+
+        //console.log("item is",result);
     })
 }
 
@@ -81,8 +91,9 @@ handleDrag(tag, currPos, newPos) {
 
 onSubmit = e => {
   e.preventDefault()
+  let now = new Date();
   const {userquery,image, tags} = this.state
-  const data = {userquery,image, tags: tags.map(x => x.id)}
+  const data = {userquery,image,now, tags: tags.map(x => x.id)}
 //  alert(`Submitting: ${JSON.stringify(data)}`)
 
   fetch(
@@ -114,6 +125,7 @@ onSubmit = e => {
               <ReactTags 
                   name='tags'
                   tags={tags}
+                  editing={false}
                   suggestions={suggestions}
                   handleDelete={this.handleDelete}
                   handleAddition={this.handleAddition}
@@ -121,7 +133,9 @@ onSubmit = e => {
                   delimiters={delimiters}
                   required/>
             </div>
+
               <button class="btn btn-lg btn-primary btn-block" >Ask</button>
+
             </form>
             <br/>
             <section>

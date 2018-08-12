@@ -1,33 +1,64 @@
 import React,{Component} from 'react';
-import {Button,Collapse,Well} from 'react-bootstrap';
-export default class Bookmarked  extends Component{
 
-    constructor(props, context) {
-        super(props, context);
-    
+import "./Home.css";
+import "./ratings.css";
+import Post from "./Post"
+
+export default class Bookmarked extends Component{
+
+    constructor() {
+        super();
         this.state = {
-          open: false
+          userquery:'',
+          username: [],          
+          queries:[],
+          comment:[],
         };
+
       }
-    
-      render() {
-        return (
-          <div>
-            <Button onClick={() => this.setState({ open: !this.state.open })}>
-              click
-            </Button>
-            <Collapse in={this.state.open}>
-              <div>
-                <Well>
-                  Anim pariatur cliche reprehenderit, enim eiusmod high life
-                  accusamus terry richardson ad squid. Nihil anim keffiyeh
-                  helvetica, craft beer labore wes anderson cred nesciunt sapiente
-                  ea proident.
-                </Well>
-              </div>
-            </Collapse>
-          </div>
-        );
-      }
+  
+    componentDidMount(){
+
+      fetch('/query').
+        then((Response)=>Response.json()).
+        then(data =>{
+          //console.log("data is:",data);
+          //  this.setState({queries:data.reverse()})
+          this.setState({queries:data.sort(function(a, b) {
+            return parseFloat(b.avgRating) - parseFloat(a.avgRating);
+             })
+            })
+
+
+          })
+
+     
+          //temporary method of getting username
+          fetch('/login')
+          .then((Response)=>Response.json()).
+            then(data =>{
+            this.setState({username:data.name})
+            console.log("name for user is:",this.state.username);
+            
+            })
     }
-    
+
+    componentWillReceiveProps(){
+      let {searchItem}=this.props;
+      console.log("Search item from Bookmarked",searchItem);
+    }
+
+
+      render() {
+          return (
+            <div className="container">
+              {this.state.queries.map((item, key) => {
+                return (<Post item={item} key={key} />)
+              }
+            )
+          }
+        </div>
+        )
+      }
+}
+

@@ -12,6 +12,10 @@ var querySchema = new mongoose.Schema({
    ],
    tags:[],
 
+   ratings:[],
+   avgRating:Number,
+   date:String
+
 });
 
 

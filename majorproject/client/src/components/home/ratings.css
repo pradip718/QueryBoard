@@ -1,3 +1,14 @@
 .rating{
     margin-inline-start: 30%
 }
+
+
+.title{
+    
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background-image: url("https://www.planwallpaper.com/static/images/new-wallpaper-161_5CayiWd.jpg");
+    background-repeat: no-repeat, no-repeat, repeat-x;
+    background-position: top left, top right, top;
+}
