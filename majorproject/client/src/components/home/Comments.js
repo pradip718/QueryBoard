@@ -23,7 +23,7 @@ export default class Comments extends React.Component{
           console.log("ratings is ",nextValue);
         //  alert(`Submitting: JSON.stringify(data)}`)
         
-          fetch('/queries/comment/ratings/'+commentItem._id,
+          fetch('/queries/comment/ratings/'+commentItem.author,
             {
               method: 'POST',
               headers: { 'Content-Type': 'application/json; charset=utf-8' },
@@ -39,9 +39,9 @@ export default class Comments extends React.Component{
         .then((Response)=>Response.json()).
           then(data =>{
 
-          this.setState({username:data.name})
+          this.setState({username:data.name});
           //console.log("name for user is:",this.state.username);
-          
+          this.setState({ratings:data.rating})
           })
     }
      render() {

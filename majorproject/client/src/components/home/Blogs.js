@@ -15,6 +15,7 @@ class Blogs extends Component {
       queries:[],
       username: [],    
       comment:[],
+      ratings:[]
     };
   }
   onChange = (e) => {
@@ -39,7 +40,8 @@ componentDidMount(){
           fetch('/login')
           .then((Response)=>Response.json()).
             then(data =>{
-            this.setState({username:data.name})
+            this.setState({username:data.name});
+            this.setState({ratings:data.rating})
             console.log("name for user is:",this.state.username);
             
             })

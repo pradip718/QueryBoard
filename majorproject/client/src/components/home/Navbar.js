@@ -86,7 +86,7 @@ import './Feeds.css';
                      <ul className="dropdown-menu dropdown-menu-left ">
                      <li>
                         <div className="bg-secondary text-white">
-                            <a href="#" >{this.state.username.split("@")[0]}
+                            <a href="#" >{this.state.username}
                                 <div>{this.state.username}</div>
                             </a>
                         </div>
